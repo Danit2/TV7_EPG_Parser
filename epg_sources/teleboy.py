@@ -84,9 +84,19 @@ class teleboy:
             data = []
             if "data" in raw_data and "items" in raw_data["data"]:
                 for item in raw_data["data"]["items"]:
+                    image_url = (
+                        f"{item['primary_image']['base_path']}"
+                        f"raw/{item['primary_image']['hash']}.jpg"
+                    )
+
+                    image_url = image_url.replace(
+                        "https://media.teleboy.ch",
+                        "https://teleboy-img.moesch.ing"
+                    )
+
                     item_epg = {
                         "subtitle": item["subtitle"],
-                        "image": f"{item['primary_image']['base_path']}raw/{item['primary_image']['hash']}.jpg",
+                        "image": image_url,
                         "begin": dateutil.parser.parse(item["begin"]),
                         "end": dateutil.parser.parse(item["end"]),
                         "title": item["title"],
